@@ -54,10 +54,14 @@ namespace LspdfrBasePlugin.Util
             var serverVersion = GetLspdfrServerVersion(LspdfrWebsiteFileId).GetAwaiter().GetResult();
 
             // Check if the server version is newer than the installed version.
-            if (installedVersion < serverVersion)
+            if (serverVersion != null && installedVersion < serverVersion)
             {
                 Game.LogTrivial("Update detected! Make sure to update BaseLspdfrPlugin as soon as possible.");
             }            
+            else if (serverVersion == null)
+            {
+                Game.LogTrivial("Could not contact LCPDFR servers to check version number! Check your internet connection and/or firewall.");
+            }
         }
 
         static async Task<Version> GetLspdfrServerVersion(int fileId)
