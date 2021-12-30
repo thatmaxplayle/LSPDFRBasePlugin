@@ -1,4 +1,5 @@
 ﻿using LSPD_First_Response.Mod.API;
+using LspdfrBasePlugin.Util;
 using Rage;
 using System.Runtime.Remoting.Messaging;
 
@@ -72,9 +73,19 @@ namespace LspdfrBasePlugin
                 Game.LogTrivial("The player has gone off duty.");
             }
 
+            // =================================================================================================================================================
+            // You may wish to perform a Version Check here. This is built right into BaseLspdfrPlugin. 
+            // All you have to do is first, set the File ID in VersionCheck.cs (it's the first variable in the class) and is called LspdfrWebsiteFileId. 
+            // This is required for using the Version Checker, otherwise you'll get an error. Then, simply uncomment this line and write the logic you want
+            // for when the plugin is out of date.
+
+            //VersionCheck.CheckForUpdates();
+            // =================================================================================================================================================
+
+
             // Register callouts here
         }
 
-     
+
     }
 }
