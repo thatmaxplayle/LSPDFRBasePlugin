@@ -10,7 +10,7 @@ using System.Runtime.Remoting.Messaging;
  * This is a working base project, which you can use to create your own plugins. By all means, you can of course clone this and make it your own. 
  * All I ask is that you credit me in the final release. 
  * 
- * My LCPDFR profile: 
+ * My LCPDFR profile: https://www.lcpdfr.com/profile/403804-thatmaxplayle/
  */
 
 /*
