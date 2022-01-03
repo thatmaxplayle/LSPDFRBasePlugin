@@ -39,6 +39,9 @@ namespace LspdfrBasePlugin
         /// </summary>
         public override void Initialize()
         {
+            // Calling the method below will read and appply the settings specified in the plugin's .ini file.
+            Settings.Load();
+
             // Add all registered console commands within the project. Passing no parameters to this method will register all console commands within the assembly.
             Game.AddConsoleCommands();
 
@@ -55,7 +58,7 @@ namespace LspdfrBasePlugin
         {
             // Clean up everything you've created! 
 
-            Game.LogTrivial("LspdfrBasePlugin has cleaned up successfully.");
+            Game.LogTrivial($"{Settings.PLUGIN_NAME} has cleaned up successfully.");
         }
 
         /// <summary>
@@ -75,7 +78,7 @@ namespace LspdfrBasePlugin
 
             // =================================================================================================================================================
             // You may wish to perform a Version Check here. This is built right into BaseLspdfrPlugin. 
-            // All you have to do is first, set the File ID in VersionCheck.cs (it's the first variable in the class) and is called LspdfrWebsiteFileId. 
+            // All you have to do is first, set LSPDFR_FILE_ID in Settings.cs. 
             // This is required for using the Version Checker, otherwise you'll get an error. Then, simply uncomment this line and write the logic you want
             // for when the plugin is out of date.
 

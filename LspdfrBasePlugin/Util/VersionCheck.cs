@@ -37,9 +37,7 @@ namespace LspdfrBasePlugin.Util
     internal class VersionCheck
     {
 
-        internal const int LspdfrWebsiteFileId = 0;
-
-        internal static HttpClient httpClient;
+        private static HttpClient _httpClient;
 
         public static void CheckForUpdates()
         {
@@ -47,16 +45,16 @@ namespace LspdfrBasePlugin.Util
             var installedVersion = Assembly.GetAssembly(typeof(VersionCheck)).GetName().Version;
 
             // Initialise httpClient if this has not already been done.
-            if (httpClient is null)
-                httpClient = new HttpClient();
+            if (_httpClient is null)
+                _httpClient = new HttpClient();
 
             // Call GetLspdfrServerVersion with the File ID assigned in the constant variable at the top of this class.
-            var serverVersion = GetLspdfrServerVersion(LspdfrWebsiteFileId).GetAwaiter().GetResult();
+            var serverVersion = GetLspdfrServerVersion().GetAwaiter().GetResult();
 
             // Check if the server version is newer than the installed version.
             if (serverVersion != null && installedVersion < serverVersion)
             {
-                Game.LogTrivial("Update detected! Make sure to update BaseLspdfrPlugin as soon as possible.");
+                Game.LogTrivial($"Update detected! Make sure to update {Settings.PLUGIN_NAME} as soon as possible.");
             }            
             else if (serverVersion == null)
             {
@@ -64,12 +62,12 @@ namespace LspdfrBasePlugin.Util
             }
         }
 
-        static async Task<Version> GetLspdfrServerVersion(int fileId)
+        static async Task<Version> GetLspdfrServerVersion()
         {
             try
             {
                 // Call up the LCPDFR.com servers, and ask for a text-representation of the latest version you've uploaded using the unique file ID assigned by the website.
-                var serverResult = await httpClient.GetAsync($"http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId={fileId}&textOnly=1");
+                var serverResult = await _httpClient.GetAsync($"http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId={Settings.LSPDFR_FILE_ID}&textOnly=1");
 
                 // Read the content of the response the server gave into a string.
                 string result = await serverResult.Content.ReadAsStringAsync();
@@ -86,7 +84,7 @@ namespace LspdfrBasePlugin.Util
             }
             catch (Exception e)
             {
-                Game.LogTrivial($"BaseLspdfrPlugin: Error whilst fetching updated version number from server. {e}");
+                Game.LogTrivial($"{Settings.PLUGIN_NAME}: Error whilst fetching updated version number from server. {e}");
                 return null;
             }
         }
