@@ -8,5 +8,5 @@ such as Discord if you're going to submit changes, so I can get online and take 
 ## Contributors
 The following developers have contributed to the project thusfar:
 
-- Rich-Dun [[LSPDFR Profile](https://www.lcpdfr.com/profile/9654-rich/)] 
+- Rich-Dunne [[LSPDFR Profile](https://www.lcpdfr.com/profile/9654-rich/)] 
 - thatmaxplayle [[LSPDFR Profile](https://www.lcpdfr.com/profile/403804-thatmaxplayle/)]
