@@ -32,7 +32,7 @@ namespace LspdfrBasePlugin
         {
             if(!_ini.Exists())
             {
-                Game.LogTrivial($"[{PLUGIN_NAME}]: Settings file not found.");
+                Game.LogTrivial($"[{PLUGIN_NAME}]: \"{PLUGIN_NAME}.ini\" not found.");
                 return;
             }
 
@@ -100,8 +100,8 @@ namespace LspdfrBasePlugin
                 case ushort ushortValue:
                     _ini.Write(section, key, ushortValue);
                     break;
-                case uint uuintValue:
-                    _ini.Write(section, key, uuintValue);
+                case uint uintValue:
+                    _ini.Write(section, key, uintValue);
                     break;
                 case ulong ulongValue:
                     _ini.Write(section, key, ulongValue);
