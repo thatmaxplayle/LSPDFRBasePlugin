@@ -1,4 +1,5 @@
-﻿using Rage;
+﻿using LspdfrBasePlugin.Util;
+using Rage;
 using System.Drawing;
 
 namespace LspdfrBasePlugin
@@ -22,7 +23,7 @@ namespace LspdfrBasePlugin
 
         #region Settings Properties
         // Example
-        internal static bool EnableCoolFeature { get; private set; } = false;
+        internal static bool EnablePluginLog { get; private set; } = false;
         #endregion
 
         /// <summary>
@@ -32,11 +33,11 @@ namespace LspdfrBasePlugin
         {
             if(!_ini.Exists())
             {
-                Game.LogTrivial($"[{PLUGIN_NAME}]: \"{PLUGIN_NAME}.ini\" not found.");
+                Logger.DisplayToConsole($"\"{PLUGIN_NAME}.ini\" not found.");
                 return;
             }
 
-            Game.LogTrivial($"[{PLUGIN_NAME}]: Loading plugin settings.");
+            Logger.DisplayToConsole($"Loading plugin settings.");
             
             ReadSettingsFromFile();
         }
@@ -47,7 +48,7 @@ namespace LspdfrBasePlugin
         private static void ReadSettingsFromFile()
         {
             // Example:
-            EnableCoolFeature = _ini.ReadBoolean("Features", "EnableCoolFeature", false);
+            EnablePluginLog = _ini.ReadBoolean("Features", nameof(EnablePluginLog), true);
         }
 
         /// <summary>
@@ -61,13 +62,13 @@ namespace LspdfrBasePlugin
         {
             if(!_ini.DoesSectionExist(section))
             {
-                Game.LogTrivial($"[{PLUGIN_NAME}]: Section \"{section}\" was not found in the .ini file.");
+                Logger.DisplayToConsole($"Section \"{section}\" was not found in the .ini file.");
                 return false;
             }
 
             if (!_ini.DoesKeyExist(section, key))
             {
-                Game.LogTrivial($"[{PLUGIN_NAME}]: Key \"{key}\" was not found in section \"{section}\".");
+                Logger.DisplayToConsole($"Key \"{key}\" was not found in section \"{section}\".");
                 return false;
             }
 
@@ -131,11 +132,11 @@ namespace LspdfrBasePlugin
                     _ini.Write(section, key, objectValue);
                     break;
                 default:
-                    Game.LogTrivial($"[{PLUGIN_NAME}]: Invalid value type provided ({value.GetType()}) while trying to update setting.");
+                    Logger.DisplayToConsole($"Invalid value type provided ({value.GetType()}) while trying to update setting.");
                     return false;
             }
 
-            Game.LogTrivial($"[{PLUGIN_NAME}]: Setting ({section}/{key}) was updated with value \"{value}\".");
+            Logger.DisplayToConsole($"Setting ({section}/{key}) was updated with value \"{value}\".");
             return true;
         }
     }
