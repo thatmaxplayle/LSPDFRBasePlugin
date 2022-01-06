@@ -15,11 +15,12 @@ namespace LspdfrBasePlugin.Util
     internal class DependencyChecker
     {
         /// <summary>
-        /// Checks if a .dll file with the given <paramref name="fileName"/> is found in the correct directory based on the specified <paramref name="pluginType"/>
+        /// Checks if a file with the given <paramref name="fileName"/> is found in the correct directory based on the specified <paramref name="pluginType"/>
         /// </summary>
         /// <param name="pluginType">PluginType.Rage checks \Plugins, PluginType.LSPDFR checks \Plugins\LSPDFR, and PluginType.Game checks the root GTA folder</param>
-        /// <param name="fileName">The name (case-insensitive and without extension) of the .dll file.</param>
-        internal static bool IsDependencyPresent(PluginType pluginType, string fileName)
+        /// <param name="fileName">The name (case-insensitive and without extension) of the file.</param>
+        /// <param name="fileExtension">The file extension of the dependency being checked.  dll by default</param>
+        internal static bool IsDependencyPresent(PluginType pluginType, string fileName, string fileExtension = "dll")
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             switch (pluginType)
@@ -32,7 +33,7 @@ namespace LspdfrBasePlugin.Util
                     break;
             }
 
-            return File.Exists($"{currentDirectory}\\{fileName}.dll");
+            return File.Exists($"{currentDirectory}\\{fileName}.{fileExtension}");
         }
     }
 }
