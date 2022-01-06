@@ -1,4 +1,4 @@
-﻿using Rage;
+﻿using LspdfrBasePlugin.Util;
 using Rage.Attributes;
 using Rage.ConsoleCommands.AutoCompleters;
 
@@ -20,7 +20,7 @@ namespace LspdfrBasePlugin
                 return;
             }
 
-            Game.LogTrivial($"[{Settings.PLUGIN_NAME}]: This message is displayed when you use ExampleCommand.");
+            Logger.DisplayToConsole($"This message is displayed when you use ExampleCommand.");
         }
     }
 }
