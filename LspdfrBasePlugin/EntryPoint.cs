@@ -1,7 +1,6 @@
 ﻿using LSPD_First_Response.Mod.API;
 using LspdfrBasePlugin.Util;
 using Rage;
-using System.Runtime.Remoting.Messaging;
 
 
 /* 
@@ -28,6 +27,8 @@ using System.Runtime.Remoting.Messaging;
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+[assembly: Rage.Attributes.Plugin("LSPDFR Base Plugin", Author = "[YOUR NAME HERE]", Description = "[YOUR DESCRIPTION HERE]", PrefersSingleInstance = true)]
+
 namespace LspdfrBasePlugin
 {
     public class EntryPoint : Plugin
@@ -42,12 +43,18 @@ namespace LspdfrBasePlugin
             // Calling the method below will read and appply the settings specified in the plugin's .ini file.
             Settings.Load();
 
+            /// If you'd like to have a plugin-specific log file that isn't cluttered with entries from other plugins, uncomment the code below.
+            //if(Settings.EnablePluginLog)
+            //{
+            //    Logger.Setup();
+            //}
+
             // Add all registered console commands within the project. Passing no parameters to this method will register all console commands within the assembly.
             Game.AddConsoleCommands();
 
             // Subscribing this event handler will mean that the OnLSpdfrDutyStatusChanged method will be called when the player goes on or off duty.
             // We can handle important logic, such as registering callouts, in this section.
-            Functions.OnOnDutyStateChanged += this.OnLspdfrDutyStatusChanged;
+            Functions.OnOnDutyStateChanged += OnLspdfrDutyStatusChanged;
         }
 
 
@@ -58,7 +65,7 @@ namespace LspdfrBasePlugin
         {
             // Clean up everything you've created! 
 
-            Game.LogTrivial($"{Settings.PLUGIN_NAME} has cleaned up successfully.");
+            Logger.DisplayToConsole($"Plugin has cleaned up successfully.");
         }
 
         /// <summary>
@@ -69,11 +76,11 @@ namespace LspdfrBasePlugin
         {
             if (onDuty)
             {
-                Game.LogTrivial("The player has gone on duty.");
+                Logger.DisplayToConsole("The player has gone on duty.");
             }
             else
             {
-                Game.LogTrivial("The player has gone off duty.");
+                Logger.DisplayToConsole("The player has gone off duty.");
             }
 
             // =================================================================================================================================================
