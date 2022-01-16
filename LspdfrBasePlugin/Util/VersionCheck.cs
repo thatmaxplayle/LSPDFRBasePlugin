@@ -1,10 +1,6 @@
-﻿using Rage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -54,11 +50,11 @@ namespace LspdfrBasePlugin.Util
             // Check if the server version is newer than the installed version.
             if (serverVersion != null && installedVersion < serverVersion)
             {
-                Game.LogTrivial($"Update detected! Make sure to update {Settings.PLUGIN_NAME} as soon as possible.");
+                Logger.DisplayToConsole($"Update detected! Make sure to downloaded the latest update as soon as possible.");
             }            
             else if (serverVersion == null)
             {
-                Game.LogTrivial("Could not contact LCPDFR servers to check version number! Check your internet connection and/or firewall.");
+                Logger.DisplayToConsole("Could not contact LCPDFR servers to check version number! Check your internet connection and/or firewall.");
             }
         }
 
@@ -77,14 +73,14 @@ namespace LspdfrBasePlugin.Util
                 Match m = pattern.Match(result);
                 string version = m.Value;
 
-                Game.LogTrivial("Server returned version information: " + version);
+                Logger.DisplayToConsole("Server returned version information: " + version);
                 
                 // Return the version given by the server in a Versio object.
                 return Version.Parse(version);
             }
             catch (Exception e)
             {
-                Game.LogTrivial($"{Settings.PLUGIN_NAME}: Error whilst fetching updated version number from server. {e}");
+                Logger.DisplayToConsole($"Error whilst fetching updated version number from server. {e}");
                 return null;
             }
         }
